@@ -1,0 +1,42 @@
+{
+  "name": "express-library",
+  "version": "1.0.0",
+  "private": true,
+  "description": "library project from some javascript guides",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
+    "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrysanthbuster/Express-Library.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "chrysanthbuster",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrysanthbuster/Express-Library/issues"
+  },
+  "homepage": "https://github.com/chrysanthbuster/Express-Library#readme",
+  "dependencies": {
+    "async": "^3.2.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.0",
+    "helmet": "^4.6.0",
+    "http-errors": "~1.6.3",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.3",
+    "morgan": "~1.9.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
