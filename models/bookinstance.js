@@ -10,22 +10,26 @@ var BookInstanceSchema = new Schema({
     due_back: { type: Date, default: Date.now },
 });
 
+// Virtual for this bookinstance object's URL.
 BookInstanceSchema
 .virtual("url")
-.get(() => {
-    return "/catalog/bookinstance/"+this._id;
+.get(function () {
+  return "/catalog/bookinstance/"+this._id;
 });
+
 
 BookInstanceSchema
 .virtual("due_back_formatted")
-.get(() => {
-    return moment(this.due_back).format("MMMM Do, YYYY");
+.get(function () {
+  return moment(this.due_back).format("MMMM Do, YYYY");
 });
 
 BookInstanceSchema
 .virtual("due_back_yyyy_mm_dd")
-.get(() => {
-    return moment(this.due_back).format("YYYY-MM-DD");
+.get(function () {
+  return moment(this.due_back).format("YYYY-MM-DD");
 });
 
+
+// Export model.
 module.exports = mongoose.model("BookInstance", BookInstanceSchema);

@@ -2,7 +2,7 @@ var Author = require("../models/author");
 var async = require("async");
 var Book = require("../models/book");
 
-const { body, validationResult, sanitizeBody } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 
 // Display list of all Authors.
 exports.author_list = (
@@ -46,19 +46,13 @@ exports.author_detail = (
 // Display Author create form on GET.
 exports.author_create_get = (req, res, next) => [
 
-    // Validate fields.
-    body("first_name").isLength({ min: 1 }).trim().withMessage("First name must be specified.")
+    // Validate fields and Sanitize fields.
+    body("first_name").isLength({ min: 1 }).escape().trim().withMessage("First name must be specified.")
         .isAlphanumeric().withMessage("First name has non-alphanumeric characters."),
-    body("family_name").isLength({ min: 1 }).trim().withMessage("Family name must be specified.")
+    body("family_name").isLength({ min: 1 }).escape().trim().withMessage("Family name must be specified.")
         .isAlphanumeric().withMessage("Family name has non-alphanumeric characters."),
-    body("date_of_birth", "Invalid date of birth").optional({ checkFalsy: true }).isISO8601(),
-    body("date_of_death", "Invalid date of death").optional({ checkFalsy: true }).isISO8601(),
-
-    // Sanitize fields.
-    sanitizeBody("first_name").escape(),
-    sanitizeBody("family_name").escape(),
-    sanitizeBody("date_of_birth").toDate(),
-    sanitizeBody("date_of_death").toDate(),
+    body("date_of_birth", "Invalid date of birth").escape().optional({ checkFalsy: true }).isISO8601(),
+    body("date_of_death", "Invalid date of death").escape().optional({ checkFalsy: true }).isISO8601(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -120,19 +114,13 @@ exports.author_delete_get = function (req, res, next) {
 // Handle Author create on POST.
 exports.author_create_post = [
 
-    // Validate fields.
-    body("first_name").isLength({ min: 1 }).trim().withMessage("First name must be specified.")
+    // Validate fields and Sanitize fields.
+    body("first_name").escape().isLength({ min: 1 }).trim().withMessage("First name must be specified.")
         .isAlphanumeric().withMessage("First name has non-alphanumeric characters."),
-    body("family_name").isLength({ min: 1 }).trim().withMessage("Family name must be specified.")
+    body("family_name").escape().isLength({ min: 1 }).trim().withMessage("Family name must be specified.")
         .isAlphanumeric().withMessage("Family name has non-alphanumeric characters."),
-    body("date_of_birth", "Invalid date of birth").optional({ checkFalsy: true }).isISO8601(),
-    body("date_of_death", "Invalid date of death").optional({ checkFalsy: true }).isISO8601(),
-
-    // Sanitize fields.
-    sanitizeBody("first_name").escape(),
-    sanitizeBody("family_name").escape(),
-    sanitizeBody("date_of_birth").toDate(),
-    sanitizeBody("date_of_death").toDate(),
+    body("date_of_birth", "Invalid date of birth").escape().optional({ checkFalsy: true }).isISO8601(),
+    body("date_of_death", "Invalid date of death").escape().optional({ checkFalsy: true }).isISO8601(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -240,19 +228,13 @@ exports.author_update_get = function(req, res) {
 // Handle Author update on POST.
 exports.author_update_post = [
 
-    // Validate fields.
-    body("first_name").isLength({ min: 1 }).trim().withMessage("First name must be specified.")
+    // Validate fields and Sanitize fields.
+    body("first_name").isLength({ min: 1 }).escape().trim().withMessage("First name must be specified.")
         .isAlphanumeric().withMessage("First name has non-alphanumeric characters."),
-    body("family_name").isLength({ min: 1 }).trim().withMessage("Family name must be specified.")
+    body("family_name").isLength({ min: 1 }).escape().trim().withMessage("Family name must be specified.")
         .isAlphanumeric().withMessage("Family name has non-alphanumeric characters."),
-    body("date_of_birth", "Invalid date of birth").optional({ checkFalsy: true }).isISO8601(),
-    body("date_of_death", "Invalid date of death").optional({ checkFalsy: true }).isISO8601(),
-
-    // Sanitize fields.
-    sanitizeBody("first_name").escape(),
-    sanitizeBody("family_name").escape(),
-    sanitizeBody("date_of_birth").toDate(),
-    sanitizeBody("date_of_death").toDate(),
+    body("date_of_birth", "Invalid date of birth").escape().optional({ checkFalsy: true }).isISO8601(),
+    body("date_of_death", "Invalid date of death").escape().optional({ checkFalsy: true }).isISO8601(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {

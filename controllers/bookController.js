@@ -3,7 +3,7 @@ var Author = require("../models/author");
 var Genre = require("../models/genre");
 var BookInstance = require("../models/bookinstance");
 
-const { body, validationResult, sanitizeBody } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 
 var async = require("async");
 
@@ -11,19 +11,19 @@ exports.index = function(req, res) {
 
     async.parallel({
         book_count: function(callback) {
-            Book.count(callback);
+            Book.countDocuments(callback);
         },
         book_instance_count: function(callback) {
-            BookInstance.count(callback);
+            BookInstance.countDocuments(callback);
         },
         book_instance_available_count: function(callback) {
-            BookInstance.count({status:"Available"},callback);
+            BookInstance.countDocuments({status:"Available"},callback);
         },
         author_count: function(callback) {
-            Author.count(callback);
+            Author.countDocuments(callback);
         },
         genre_count: function(callback) {
-            Genre.count(callback);
+            Genre.countDocuments(callback);
         },
     }, function(err, results) {
         res.render("index", { title: "Local Library Home", error: err, data: results });
@@ -39,7 +39,7 @@ exports.book_list = function(req, res, next) {
     .exec(function (err, list_books) {
       if (err) { return next(err); }
       // Successful, so render
-      res.render("book_list", { title: "Book List", book_list:  list_books});
+      res.render("book_list", { title: "Book List", book_list: list_books });
     });
 
 };
@@ -104,15 +104,15 @@ exports.book_create_post = [
         next();
     },
 
-    // Validate fields.
+    // Validate fields and Sanitize fields.
     body("title", "Title must not be empty.").isLength({ min: 1 }).trim(),
     body("author", "Author must not be empty.").isLength({ min: 1 }).trim(),
     body("summary", "Summary must not be empty.").isLength({ min: 1 }).trim(),
     body("isbn", "ISBN must not be empty").isLength({ min: 1 }).trim(),
   
-    // Sanitize fields.
-    sanitizeBody("*").escape(),
-    sanitizeBody("genre.*").escape(),
+    body("*").escape(),
+    body("genre.*").escape(),
+
     // Process request after validation and sanitization.
     (req, res, next) => {
         
@@ -270,18 +270,13 @@ exports.book_update_post = [
         next();
     },
    
-    // Validate fields.
-    body("title", "Title must not be empty.").isLength({ min: 1 }).trim(),
-    body("author", "Author must not be empty.").isLength({ min: 1 }).trim(),
-    body("summary", "Summary must not be empty.").isLength({ min: 1 }).trim(),
-    body("isbn", "ISBN must not be empty").isLength({ min: 1 }).trim(),
+    // Validate fields and Sanitize fields.
+    body("title", "Title must not be empty.").escape().isLength({ min: 1 }).trim(),
+    body("author", "Author must not be empty.").escape().isLength({ min: 1 }).trim(),
+    body("summary", "Summary must not be empty.").escape().isLength({ min: 1 }).trim(),
+    body("isbn", "ISBN must not be empty").escape().isLength({ min: 1 }).trim(),
 
-    // Sanitize fields.
-    sanitizeBody("title").escape(),
-    sanitizeBody("author").escape(),
-    sanitizeBody("summary").escape(),
-    sanitizeBody("isbn").escape(),
-    sanitizeBody("genre.*").escape(),
+    body("genre.*").escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
