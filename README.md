@@ -4,7 +4,7 @@ Product made learning from http://developer.mozilla.org/en-US/docs/Learn/Server-
 # setup enviroment
 Intall npm packages npm install
 
-Install local mongodb database, create a LocalLibraryDB database and a cluster name (name dont matter) then generate connection string and update the connnection string in app.js and populatedb
+Install local mongodb database, create a LocalLibraryDB database and a cluster name (name dont matter) then generate connection string and update the connnection string in configuration file
 
 run the setup db with node populatedb 
 

@@ -1,26 +1,25 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const helmet = require("helmet");
+const compression = require("compression");
 
 //Routers
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var catalogRouter = require("./routes/catalog");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const catalogRouter = require("./routes/catalog");
 
-var compression = require('compression');
-var helmet = require('helmet');
-
-var app = express();
+const app = express();
 
 // Set up mongoose connection, using local database for this project
-var mongoose = require("mongoose");
-var dev_db_url = "mongodb://127.0.0.1:27017/LocalLibraryDB?authMechanismProperties=SERVICE_NAME:mongodb"
-var mongoDB = process.env.MONGODB_URI || dev_db_url;
+const mongoose = require("mongoose");
+const dev_db_url = require("./config").connectionString; //config.connectionString
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 

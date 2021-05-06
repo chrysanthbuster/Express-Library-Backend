@@ -3,13 +3,13 @@
 console.log("This script populates some test books, authors, genres and bookinstances to your database.");
 
 var async = require('async');
-var Book = require('./models/book');
-var Author = require('./models/author');
-var Genre = require('./models/genre');
-var BookInstance = require('./models/bookinstance');
+var Book = require('../models/book');
+var Author = require('../models/author');
+var Genre = require('../models/genre');
+var BookInstance = require('../models/bookinstance');
 
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://127.0.0.1:27017/LocalLibraryDB?gssapiServiceName=mongodb';
+var mongoDB = require("../config").connectionString;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
