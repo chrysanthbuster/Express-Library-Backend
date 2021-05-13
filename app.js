@@ -8,8 +8,9 @@ const compression = require("compression");
 
 //Routers
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+//const usersRouter = require("./routes/users");  //disable user routing
 const catalogRouter = require("./routes/catalog");
+//const contactRouter = require("./routes/contact");
 
 const app = express();
 
@@ -21,7 +22,6 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -38,8 +38,9 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+//app.use("/users", usersRouter);    //disable user routing
 app.use("/catalog", catalogRouter);  // Add catalog routes to middleware chain.
+//app.use("/contact", contactRouter);  // Contact page
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

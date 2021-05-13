@@ -8,6 +8,8 @@ Install local mongodb database, create a LocalLibraryDB database and a cluster n
 
 run the setup db with node populatedb 
 
+generate PEM with openssl
+
 # start the application
 $ENV:DEBUG = "express-locallibrary-tutorial:*"; npm start
 

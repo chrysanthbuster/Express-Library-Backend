@@ -40,3 +40,7 @@ jspm_packages
 
 # Configuration files
 config.js
+
+#certifications
+privatekey.pem
+request.pem
