@@ -2,8 +2,6 @@
 
 Product made learning from http://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 
-Read the full story here: https://docs.google.com/document/d/160sK8xRfuzKBKELEnyQaGr-97wLOD7wu4-SZHbT2RNw/edit?usp=sharing
-
 # setup enviroment
 
 Intall npm packages npm install
